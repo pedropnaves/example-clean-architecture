@@ -1,0 +1,19 @@
+<button (click)="getMovieById(1)">getMovieById</button>
+<button (click)="getAllMovies()">getAllMovies</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>ReleaseDate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movies">
+      <td>{{movie.id}}</td>
+      <td>{{movie.name}}</td>
+      <td>{{movie.releaseDate}}</td>
+    </tr>
+  </tbody>
+</table>

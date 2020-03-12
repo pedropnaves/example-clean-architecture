@@ -13,7 +13,7 @@
     <tr *ngFor="let movie of movies">
       <td>{{movie.id}}</td>
       <td>{{movie.name}}</td>
-      <td>{{movie.releaseDate}}</td>
+      <td>{{movie.releaseDate | date: 'shortDate'}}</td>
     </tr>
   </tbody>
 </table>

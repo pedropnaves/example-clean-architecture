@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MovieModel} from '../../core/domain/movie.model';
-import {MovieDataSandbox} from '../../data/movie-repository/movie-data.sandbox';
+import {GetMovieByIdUsecase} from '../../core/usecases/get-movie-by-id.usecase';
+import {GetAllMoviesUsecase} from '../../core/usecases/get-all-movies.usecase';
 
 @Component({
   selector: 'app-movies',
@@ -12,22 +13,24 @@ export class MoviesComponent {
   public movies: Array<MovieModel>;
 
   constructor(
-    private movieDataSandbox: MovieDataSandbox,
+    private getMovieByIdUsecase: GetMovieByIdUsecase,
+    private getAllMoviesUsecase: GetAllMoviesUsecase
   ) {
     this.movies = [];
   }
 
   getMovieById(id: number): void {
-    this.movieDataSandbox.getMovieById(id)
-      .subscribe((movie) => this.onSuccessGetMovie(movie));
+    this.getMovieByIdUsecase.execute(id)
+      .subscribe((movie) => this.onSuccessGetMovie(movie))
   }
 
   getAllMovies(): void {
-    this.movieDataSandbox.getAllMovies()
-      .subscribe((movie) => this.onSuccessGetMovie(movie));
+    this.getAllMoviesUsecase.execute()
+      .subscribe((movie) => this.onSuccessGetMovie(movie))
   }
 
   onSuccessGetMovie(movie: MovieModel) {
     this.movies.push(movie);
   }
+
 }

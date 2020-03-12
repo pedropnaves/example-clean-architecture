@@ -1,11 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { MovieDataSandbox } from './data/movie-repository/movie-data.sandbox';
+import {HttpClientModule, HttpXsrfTokenExtractor} from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { MovieDataRepository } from './data/movie-repository/movie-data.repository';
+import { GetMovieByIdUsecase } from './core/usecases/get-movie-by-id.usecase';
+import { GetAllMoviesUsecase } from './core/usecases/get-all-movies.usecase';
 import { MoviesComponent } from './containers/movies/movies.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MovieDataModule } from './data/movie-repository/movie-data.module';
+import { MovieRepository } from './core/repositories/movie.repository';
 
 @NgModule({
   declarations: [
@@ -17,10 +18,10 @@ import { MovieDataModule } from './data/movie-repository/movie-data.module';
     HttpClientModule,
   ],
   providers: [
-    MovieDataModule,
+    GetMovieByIdUsecase,
+    GetAllMoviesUsecase,
+    { provide: MovieRepository, useClass: MovieDataRepository }
   ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
